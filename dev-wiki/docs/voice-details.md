@@ -51,7 +51,7 @@ In the example below, we have an excerpt from ``onik_001.txt``, in the voices-on
 	OutputLineAll(NULL, "\n", Line_ContinueAfterTyping);
 ```
 
-#### Code breakdown:
+#### Code breakdown
 
 * **PlaySE( 4, "s19/01/hr_kei00130", 300, 64 );**
     * PlaySE(``channel``, "``filename``", ``volume``, ``pan``)
@@ -114,7 +114,7 @@ In newer patches, however, the code is fully processed to be ready for features 
 	if (GetGlobalFlag(GADVMode)) { ClearMessage(); } else { OutputLineAll(NULL, "\n", Line_ContinueAfterTyping); }
 ```
 
-#### Code breakdown:
+#### Code breakdown
 
 * **ModPlayVoiceLS(3, 1, "s19/01/hr_kei00130", 256, TRUE);**
     * ModPlayVoiceLS(``channel``, ``character``, "``filename``", ``volume``, ``TRUE/FALSE``);
@@ -141,7 +141,7 @@ It is good to remember that the code snippet above does not only include syntax 
 ModDrawCharacterWithFiltering(3, 10, "sprite/normal/iri1_def2_", "1", "right", 1, 160, 0, FALSE, 0, 0, 0, 0, 0, 20, 300, TRUE );
 ```
 
-#### Code breakdown:
+#### Code breakdown
 
 * **ModDrawCharacterWithFiltering(3, 10, "sprite/normal/iri1_def2_", "1", "right", 1, 160, 0, FALSE, 0, 0, 0, 0, 0, 20, 300, TRUE );**
     * ModDrawCharacterWithFiltering(``sprite layer``, ``voice folder``, "``sprite image``", ``static sprite``, ``fade-in mask``, ``?``, ``horizontal``, ``?``, ``?``, ``?``, ``?``, ``?``, ``?``, ``?``, ``level``, ``fade-in``, ``parallel``);
