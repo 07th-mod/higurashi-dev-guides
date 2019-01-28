@@ -1,8 +1,10 @@
 # Introduction
+
 The goal of this page is to describe the proceedings by which the scripts can be edited to make it flow seamlessly.
 After reading everything and experiencing a bit, you should be able to write scripts to play entire scenes properly from scratch.
 
 # Understanding The Script
+
 To start off, glancing at a random part of a script will probably look like occult scrawlings with some bits here and there that make some sense, but will come a time where you will be able to discern and understand every single part.
 
 Because every single line of the script has a meaning, you'll be able to see the superfluous lines that can be removed without affecting(or doing so in a good way) the script. Each additional line takes memory or sequencing time, so trimming down the process usage is important.
@@ -86,7 +88,9 @@ Now that I explained most of it, this is what it looks like in action:
 https://www.youtube.com/watch?v=gDOm4B5PYoY
 
 As you will have perhaps noticed, there was already a bgm playing and a scene drawn. That is because you need to always remember there is a continuity in the scripts and to be aware of it.
+
 # Sequencing Properly
+
 And this is where the next point will lead us. It is important to understand that to make a scene, you have a good number of factors to take into consideration, and how each of the components are handled.
 
 The timing is also important, as you won't be able to make everything jump out; you need a proper entrance to it, but also a proper exit. Let's say for example, I want to have a music start playing and replace the current one, I'd have to make it fade out while playing the other on another channel, to have an incremential change as the old music fades out and the new starts, without a brutal cut.
@@ -117,7 +121,9 @@ The high time to draw the scenes is important to give the feeling of waking up w
 There is many more things you can do in that regard, like shaking the screen while playing a loud sound to simulate a hit or as simple as drawing a facial expression to show the change in tone of a character.
 
 By using the various tools at disposition and a little touch of creativity, you can make an impressive variety of effects to create quite immersive scenes.
+
 # What To Watch Out For
+
 But there are still points to keep in mind to avoid falling into traps and have unexpected results. In the many examples I could give, there is to never forget when you start a bgm, to fade it out. Despite the safeguards, it's still better to not let a track when it's supposed to be over.
 
 Another point is the priority, where some methods can be used simultaneously, but others can't, and some only with specific ones. Most of the draw with filter hog priority and forbid to have higher priority events happening at the same time(you can't draw with filter and a new scene, for example, or several filter draws). Which is why it's important to keep in mind what is prioritized over what when sequencing.
@@ -131,7 +137,9 @@ The way priority is handled is also slightly different in that several related m
 It also acts weirdly with sprite drawing, where several drawing can become ported over to the next scene drawing, even if you try to keep priority(I've had to try many workarounds as it's very annoying, and one of the most efficient if possible is to redraw the scene with the new expression, though it's best if you don't have to do anything).
 
 In the end it'll rely mostly on the feel, the flow and testing it out, but hopefully all this'll help making it easier to start out.
+
 # Commonly Used Tools
+
 Finally I'll describe some of the most commonly used tools I use to make editing easier:
 
 	DrawBustshot(5, "black", 0, 0, 0, FALSE, 0, 0, 0, 0, 0, 0, 0, 25, 500, TRUE );
