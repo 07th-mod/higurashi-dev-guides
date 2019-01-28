@@ -4,7 +4,7 @@ repo_url: https://github.com/07th-mod/
 repo_name: 07th-Mod (Organization)
 copyright: All Nipahs Reserved
 site_dir: developer
-edit_uri: 'higurashi-dev-guides/dev-wiki/edit/master/docs'
+edit_uri: 'higurashi-dev-guides/edit/master/dev-wiki/docs'
 nav:
   - Home: index.md
   - <b>Overview</b>: overview.md
