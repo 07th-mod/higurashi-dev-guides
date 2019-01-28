@@ -1,19 +1,9 @@
 > Written by @ItaloKnox
 
-- [Patching resources](#patching-resources)
-- [PlaySE](#playse)
-	- [Assembly-CSharp.dll code](#assembly-csharpdll-code)
-	- [Script usage](#script-usage)
-		- [Code breakdown:](#code-breakdown)
-- [ModPlayVoiceLS](#modplayvoicels)
-	- [Assembly-CSharp.dll code](#assembly-csharpdll-code)
-	- [Script usage](#script-usage)
-		- [Code breakdown:](#code-breakdown)
-
 The first step for every patch is to make the voice patch. It all starts from there and branches out into graphics, ADV, and lipsync.
 
 
-# Patching resources
+## Patching resources
 
 To make these patches, of course, we need some resources. In the list below you can find the links to every resource available in our project:
 
@@ -27,9 +17,9 @@ To make these patches, of course, we need some resources. In the list below you 
 * [HigurashiPS2-Voices02.zip](https://github.com/07th-mod/resources/releases/download/Nipah/HigurashiPS2-Voices02.zip) - Full set of voice files from the PS2 game. 2/2.
 
 
-# PlaySE
+## PlaySE
 
-## Assembly-CSharp.dll code
+### Assembly-CSharp.dll code
 
 ```csharp
  public void PlaySE(string filename, int channel, float volume, float pan)
@@ -43,7 +33,7 @@ To make these patches, of course, we need some resources. In the list below you 
  }
 ```
 
-## Script usage
+### Script usage
 
 In the example below, we have an excerpt from ``onik_001.txt``, in the voices-only format:
 
@@ -61,7 +51,8 @@ In the example below, we have an excerpt from ``onik_001.txt``, in the voices-on
 	OutputLineAll(NULL, "\n", Line_ContinueAfterTyping);
 ```
 
-### Code breakdown:
+#### Code breakdown:
+
 * **PlaySE( 4, "s19/01/hr_kei00130", 300, 64 );**
     * PlaySE(``channel``, "``filename``", ``volume``, ``pan``)
         * ``PlaySE`` calls the "play sound effect" function. It's mainly used for sound effects but can also be used for voices.
@@ -71,9 +62,10 @@ In the example below, we have an excerpt from ``onik_001.txt``, in the voices-on
         * ``pan`` refers to audio panning. You can move the channel from left to right with this. It's never used, the default value is **64**.
 
 
-# ModPlayVoiceLS
+## ModPlayVoiceLS
 
-## Assembly-CSharp.dll code
+### Assembly-CSharp.dll code
+
 ```csharp
 		public void MODPlayVoiceLS(string filename, int channel, float volume, int character)
 		{
@@ -103,7 +95,7 @@ In the example below, we have an excerpt from ``onik_001.txt``, in the voices-on
 		}
 ```
 
-## Script usage
+### Script usage
 
 In newer patches, however, the code is fully processed to be ready for features such as the lipsync and ADV. Because of that (see [Assembly-CSharp.dll](https://github.com/07th-mod/higurashi-dev-guides/wiki/assembly-csharp.dll)), the syntax requires a new function called ``ModPlayVoiceLS``. It also comes with a new structure:
 
@@ -122,7 +114,8 @@ In newer patches, however, the code is fully processed to be ready for features 
 	if (GetGlobalFlag(GADVMode)) { ClearMessage(); } else { OutputLineAll(NULL, "\n", Line_ContinueAfterTyping); }
 ```
 
-### Code breakdown:
+#### Code breakdown:
+
 * **ModPlayVoiceLS(3, 1, "s19/01/hr_kei00130", 256, TRUE);**
     * ModPlayVoiceLS(``channel``, ``character``, "``filename``", ``volume``, ``TRUE/FALSE``);
         * ``ModPlayVoiceLS`` calls the new "Mod Play Voice LipSync" function. It's a newer version independent of ``PlaySE`` that was previously used to play voices.
@@ -134,22 +127,22 @@ In newer patches, however, the code is fully processed to be ready for features 
 
 It is good to remember that the code snippet above does not only include syntax for the voices and lipsync, it also includes syntax for the ADV Mode. Check out [ADV Mode](https://github.com/07th-mod/higurashi-dev-guides/wiki/ADV-Mode) for more information.
 
-# ModDrawCharacterWithFiltering
+## ModDrawCharacterWithFiltering
 
-## Assembly-CSharp.dll code
+### Assembly-CSharp.dll code
+
 ```csharp
 	<pending>
 ```
 
-## Script usage
-
-
+### Script usage
 
 ```
 ModDrawCharacterWithFiltering(3, 10, "sprite/normal/iri1_def2_", "1", "right", 1, 160, 0, FALSE, 0, 0, 0, 0, 0, 20, 300, TRUE );
 ```
 
-### Code breakdown:
+#### Code breakdown:
+
 * **ModDrawCharacterWithFiltering(3, 10, "sprite/normal/iri1_def2_", "1", "right", 1, 160, 0, FALSE, 0, 0, 0, 0, 0, 20, 300, TRUE );**
     * ModDrawCharacterWithFiltering(``sprite layer``, ``voice folder``, "``sprite image``", ``static sprite``, ``fade-in mask``, ``?``, ``horizontal``, ``?``, ``?``, ``?``, ``?``, ``?``, ``?``, ``?``, ``level``, ``fade-in``, ``parallel``);
         * ``ModDrawCharacterWithFiltering`` calls a function for drawing a character with a fade-in.
@@ -163,4 +156,4 @@ ModDrawCharacterWithFiltering(3, 10, "sprite/normal/iri1_def2_", "1", "right", 1
         * ``fade-in`` the speed in milliseconds the sprite fades in.
         * ``parallel`` determines if the system should continue before the sprite finishes drawing (setting it to TRUE allows you to have multiple sprites fading in at once).
 
-This page continues on [Automated voice inserter](https://github.com/07th-mod/higurashi-dev-guides/wiki/Automated-voice-inserter).
+This page continues on [Automated voice inserter](https://07th-mod.com/wiki/developer/automated-voice-inserter/).
