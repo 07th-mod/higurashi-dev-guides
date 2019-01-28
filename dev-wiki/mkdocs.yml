@@ -29,6 +29,7 @@ nav:
   - <b>Custom game features</b>:
     - ADV Mode and LipSync: adv-mode-and-lipsync.md
   - <b>Technical engine details</b>:
+    - On Scripting: on-scripting.md
     - Syntax: syntax.md
     - Assembly-CSharp.dll<br>(under construction): ./
     - Modded engine flags<br>(under construction): ./
