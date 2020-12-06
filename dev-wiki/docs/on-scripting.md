@@ -81,7 +81,7 @@ Ending with a spoken sentence, this time, the 'header' line will write the name(
 
 That way, you will have the text and voice playing at the same time(because ModPlayVoiceLS doesn't hold priority).
 
-And for the last bit, it will act the same if you are in ADV mode, but in NVL mode, it won't clean the text and only skip a line, creating a wall of text because there is more space than the little textbox of ADV mode.
+And for the last bit, it will act the same if you are in ADV mode, but in NVL mode, it won't clean the text and only skip a line, creating a wall of text because there is more space than with the little textbox of ADV mode.
 
 Now that I explained most of it, this is what it looks like in action:
 
@@ -93,7 +93,7 @@ As you will have perhaps noticed, there was already a bgm playing and a scene dr
 
 And this is where the next point will lead us. It is important to understand that to make a scene, you have a good number of factors to take into consideration, and how each of the components are handled.
 
-The timing is also important, as you won't be able to make everything jump out; you need a proper entrance to it, but also a proper exit. Let's say for example, I want to have a music start playing and replace the current one, I'd have to make it fade out while playing the other on another channel, to have an incremential change as the old music fades out and the new starts, without a brutal cut.
+The timing is also important, as you won't be able to make everything jump out; you need a proper entrance to it, but also a proper exit. Let's say for example, I want to have a music start playing and replace the current one, I'd have to make it fade out while playing the other on another channel, to have an incremental change as the old music fades out and the new starts, without a brutal cut.
 
 And unless it is for a specific usage, this applies to everything else. It is important to make it fluid so that you won't have a coldwater splash of "Wait, this happened weirdly!" that, well, isn't needed when you're trying to enjoy the story.
 
@@ -134,7 +134,7 @@ Also, different chapters have different engines(the biggest gap being question a
 
 The way priority is handled is also slightly different in that several related methods can trample over and create annoying issues if they're not separated by a 'high priority' method. For example having a fadeout and a play bgm methods in the same 'priority line'(not cut by a hogging priority method) will prevent the play bgm to act, no matter how much methods you add in between(creating the well known music bug).
 
-It also acts weirdly with sprite drawing, where several drawing can become ported over to the next scene drawing, even if you try to keep priority(I've had to try many workarounds as it's very annoying, and one of the most efficient if possible is to redraw the scene with the new expression, though it's best if you don't have to do anything).
+It also acts weirdly with sprite drawing, where several drawing can become ported over to the next scene drawing or after a new outputline, even if you try to keep priority(I've had to try many workarounds as it's very annoying, and one of the most efficient if possible is to redraw the scene with the new expression, and/or change the layer of the new sprite).
 
 In the end it'll rely mostly on the feel, the flow and testing it out, but hopefully all this'll help making it easier to start out.
 
