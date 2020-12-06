@@ -3,6 +3,18 @@
 The goal of this page is to describe the proceedings by which the scripts can be edited to make it flow seamlessly.
 After reading everything and experiencing a bit, you should be able to write scripts to play entire scenes properly from scratch.
 
+## Indentation / Whitespace
+
+Please pay attention to tabs/spaces in the script. **Every line with a function call must start with at least one tab character**. If you use spaces accidentally at the very start of a line, the engine will just display the raw code on the screen and skip the function call.
+
+Configuring your text editor to show whitespace and/or enabling tabs for spaces may help you diagnose this kind of issue.
+
+## Syntax Highlighting
+
+Since the script language is similar to C/C++, you can enable C/C++ syntax highlighting in your text editor to get some basic highlighting.
+
+For Visual Studio Code users, we have a highlighter specifically for Higurashi scripts that can be downloaded from our [script-syntax-highlighters](https://github.com/07th-mod/script-syntax-highlighters/releases) repository (see the README.md on the repo for install instructions). It will highlight some keywords specific to the Higurashi scripting language. However, please note that it may not always be correct, so don't rely on it 100% for detecting syntax errors.
+
 ## Understanding The Script
 
 To start off, glancing at a random part of a script will probably look like occult scrawlings with some bits here and there that make some sense, but will come a time where you will be able to discern and understand every single part.
