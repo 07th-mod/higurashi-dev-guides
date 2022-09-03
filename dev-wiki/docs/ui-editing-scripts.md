@@ -104,7 +104,8 @@ That's all you really need for the Japanese script (I recommend taking the kanji
 
 For English, you'll need to collect a few more files, since the font behind `msgothic_2` will be used to display the game's menus, including the Japanese ones.  Collect all the text used in strings in asset files using `./AssetBundleStringExtractor pathToHigurashiDataFolder/*.assets | ./UniqueCharacters - > assetBundleCharsUsed.txt`.  Then, clone [the DLL code repository](https://github.com/07th-mod/higurashi-assembly) and cat all the `Assets.Scripts.UI.Tips/TipsData.cs` files along with [the console arcs tips JSON](https://github.com/07th-mod/higurashi-console-arcs/blob/master/tips.json) together and run that through `./UniqueCharacters`.  Finally, you can `cat englishScriptCharsUsed.txt assetBundleCharsUsed.txt tipsCharsUsed.txt | ./UniqueCharacters - > englishCharset.txt`.  Like with the Japanese, copy the kanji out of that and paste it over the kanji in the scripts repo's `msgothic_2_charset_OtherLang.txt`.  This is to preserve the extra characters which were added to make translation into other languages easier.
 
-# Adding Font Support for a New Language
+# Adding Font Support for a New Language (Chapters 1-8 ONLY)
+
 The first thing you'll need is a [copy of Unity 5](https://unity3d.com/get-unity/download/archive) (I used 5.5.5 but I would expect newer versions of Unity 5 to work as well).  Once you have that, create a new project, go to the Asset Store, and search for and download TextMeshPro.
 ### Preparing the character list
 To make the font file, you will need a list of all the characters you want in it.  Annoyingly, some of the Japanese parts of the games still rely on the English font, so you'll need to have those characters in addition to the ones you use for your language's character support.  Download the current list from msgothic_2_charset_OtherLang.txt in [here](https://github.com/07th-mod/ui-editing-scripts/tree/master/scripts/CharacterInfoExtraction), which is the list of characters in the current English font.  If your language's characters are already in that file, you shouldn't need to be doing font file editing at all.  Otherwise, modify the text file to replace all the accented roman characters before the `←↑→↓` with all the characters you want in your font.  Don't remove the characters after that point, because they're required to properly display some things in Japanese mode.  Once you've done that, drag the new txt file into the Unity project you made.
@@ -122,3 +123,77 @@ Next, click Generate Font Atlas.  This will take a while for large atlases.  Whe
 Once you've saved the font, use the Unity inspector to change its Line Height to be equal to its Point Size.  This is what MS Gothic uses, and a lot of the game's character spacing expects this to be the case.
 
 From here, follow the directions above for TMPAssetConverter to add your font to the game.
+
+# Adding Font Support for a New Language (Higurashi Rei onwards ONLY)
+
+For Rei, the method used for Chapters 1-8 doesn't work. For now, we have the following process.
+
+Please keep in mind the instructions are rough around the edges - please let us know if they don't make sense or need updating!
+
+Also, these instructions roughly [follow this guide in Korean](https://snowyegret.tistory.com/m/21) (thanks to 이칠공), which you [can translate](https://discord.com/channels/384426173821616128/750313515482480699/1013705389205897236).
+
+## Creating the font
+
+1. Install the version of Unity matching the game (roughly). For example, Rei is currently either verison `2019.4.36f1` or version `2019.4.40f1`, so we install version 2019.4.36 (generally the font generated on 2019.4.36 should work for all 2019.4.* versions)
+2. Create a new project
+3. Add a text object
+4. Click Window->TextMeshPro->Font Asset Creator
+5. Follow the existing instructions above to make a new font asset (starting from "Preparing the character list" up to and including "Generating the SDF font"), but **DO NOT run TMPAssetConverter**
+  - If you're not sure, also refer to the [translated Korean instructions](https://discord.com/channels/384426173821616128/750313515482480699/1013705389205897236)
+
+## Extracting fonts from the built game
+
+### Building the game and opening it in UABE
+
+1. Build/export the project to a known location
+2. Install the latest version of UABE [from the UABE repository](https://github.com/SeriousCache/UABE)
+3. Open the .sharedassets from the built game using UABE
+    - **Open it straight from the game directory! don't copy it somewhere else, as UABE will read some information from the game I think**
+4. If a popup appears, select the closest unity version to the version you just exported the dummy game with
+
+### Getting the texture atlas .png
+
+1. Find the SDF atlas file, called `[FONT NAME] SDF Atlas` in the file browser, of type Texture2D (my example was "Binggrae SDF Atlas")
+2. Click on that item to select it
+3. Click "Plugins" on the right
+4. Click "export to .png", press  OK and save it somewhere. Rename it to something you can remember like `FONT_NAME_sdf_atlas.png`
+
+### Getting the monobehavior
+
+1. Repeat the above, but find the file called "MonoBehaviour [FONT NAME] SDF"
+2. Click "Export Dump"
+3. If a popup appears asking to 'extract extra information', **click Yes**. If another popup appears asking to select a file, **click cancel**. For some reason, even if you click cancel, you'll get the detailed dump.
+4. Save the text file with a memorable name like `FONT_NAME_monobehavior_sdf.txt`
+
+## Merging Monobehaviors
+
+1. Repeat "Getting the monobehavior", but this time do it on the game to be modded. In Rei, you're looking for a file called "MonoBehaviour msgothic_2 SDF".
+3. Open the unmodded game's `MonoBehaviour msgothic_2 SDF` in one text editor (It's suggested you use Visual Studio Code)
+4. Open the exported game's `[FONT NAME] SDF Atlas` (`MonoBehaviour Binggrae_2 SDF` for example) in another text editor window/tab/panel
+  - In Visual Studio Code, dragging the second file to the right hand side of the window will open it side-by-side
+5. Delete everything below and including the `0 FaceInfo m_FaceInfo` line
+6. Copy everything below and including the dummy game's  0 FaceInfo m_FaceInfo line into the game's YAML file
+  - The above korean instructions state you may need to manually adjust it, but it seems to work even if you just copy everything in the YAML file after  the 0 FaceInfo m_FaceInfo line
+
+Basically, you just open the two files side by side, then copy everything below `0 FaceInfo m_FaceInfo` into the other file at the corresponding location.
+
+## Extracting files for our scripts
+
+1. Open the game's sharedassets.assets file again in UABE
+2. Find and select the SDF atlas called "msgothic_2 SDF Atlas"
+3. click plugins
+4. click "edit texture"
+5. Select the .png file you extracted earlier.
+6. Click "Export Raw", and save it as your final atlas .dat (?? hopefully you can do it without saving??)
+6. Find and select the "MonoBehaviour msgothic_2 SDF"
+7. Click "Import Dump"
+8. Choose the merged YAML file you created earlier
+9. Click "Export Raw", and save it as your final monobehavior .dat (?? hopefully you can do it without saving??)
+
+## Renaming/moving file so our script ui-editing-scripts can use it
+
+1. Put both the .dat files in the `assets\files-2019.4` folder (or in the future, one matching your unity version)
+2. Rename the texture atlas as `msgothic_2 SDF Atlas_Texture2D.dat` to make the script replace by name and type(or use the "replace by Path ID" method?)
+3. Rename the monobehavior as `948_MonoBehaviour msgothic_2 SDF.dat` to replace the asset with PathID #948
+
+Once this part is done, the fonts will be automatically included in the output .assets
