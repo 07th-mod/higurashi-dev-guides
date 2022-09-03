@@ -19,7 +19,11 @@ UnityPack has dependency on something called `decrunch` which requires Visual C+
 # UnityTextModifier
 This script will allow you to edit text files embedded in the asset files of games. This includes most UI elements.
 
-UnityTextModifier.py requires three arguments, the `.assets` file that contains the text you want to edit, a JSON file listing the edits you want to make, and an output directory where the edits will be outputted.  The JSON file should be formatted as an array of objects with the fields `CurrentEnglish`, `CurrentJapanese`, `NewEnglish`, and `NewJapanese`.  There's also an optional `Discriminator` field, which shouldn't be used unless the script finds multiple copies of your string in the file, in which case it should tell you what values can be put there.  Here's an example JSON file:
+UnityTextModifier.py requires three arguments, the `.assets` file that contains the text you want to edit, a JSON file listing the edits you want to make, and an output directory where the edits will be outputted.  The JSON file should be formatted as an array of objects with the fields `CurrentEnglish`, `CurrentJapanese`, `NewEnglish`, and `NewJapanese`.
+
+There's also an optional `Discriminator` field, which shouldn't be used unless the script finds multiple copies of your string in the file. The script will give a message like `Multiple assets found for ON / ON, candidates are 0: 0x6031370, 1: 0x6038090 ...`, then you can add a line like `Discriminator: 0` to a block in your JSON file like the below example.
+
+Here's an example JSON file:
 ```json
 [
 	{
@@ -27,16 +31,32 @@ UnityTextModifier.py requires three arguments, the `.assets` file that contains 
 		"CurrentJapanese": "オリジナル",
 		"NewEnglish": "PS3",
 		"NewJapanese": "PS3"
-	}, {
+	},
+	{
 		"CurrentEnglish": "Updated",
 		"CurrentJapanese": "新規",
 		"NewEnglish": "MangaGamer",
 		"NewJapanese": "MangaGamer"
-	}, {
+	},
+	{
 		"CurrentEnglish": "Watanagashi 12-3",
 		"CurrentJapanese": "綿流し編　１２日目３",
 		"NewEnglish": "Watanagashi Day 12-3",
 		"NewJapanese": "綿流し編　１２日目３"
+	},
+	{
+		"CurrentEnglish": "ON",
+		"CurrentJapanese": "全て",
+		"NewEnglish": "Вкл",
+		"NewJapanese": "全て",
+		"Discriminator": 0
+	},
+	{
+		"CurrentEnglish": "ON",
+		"CurrentJapanese": "ON",
+		"NewEnglish": "Вкл",
+		"NewJapanese": "ON",
+		"Discriminator": 1
 	}
 ]
 ```
